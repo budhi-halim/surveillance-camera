@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=UTF-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Surveillance Camera</title>
+<link rel=icon type=image/png href=favicon.png>
+<link rel=stylesheet href=style.css>
+<script src=https://cdn.jsdelivr.net/npm/fix-webm-duration></script>
+</head>
+<body>
+<div class=app-container>
+<section id=view-home class="view-stage active">
+<header class=main-header>
+<h1>Surveillance</h1>
+<div class="badge status-idle">IDLE</div>
+</header>
+<div class=menu-grid>
+<button class=menu-card data-target=continuous>
+<div class=card-icon>
+<svg xmlns=http://www.w3.org/2000/svg fill=none viewBox="0 0 24 24" stroke-width=1.5 stroke=currentColor><path stroke-linecap=round stroke-linejoin=round d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
+</div>
+<div class=card-text>
+<h2>Continuous</h2>
+<p>Record 24/7 until stopped.</p>
+</div>
+</button>
+<button class=menu-card data-target=timer>
+<div class=card-icon>
+<svg xmlns=http://www.w3.org/2000/svg fill=none viewBox="0 0 24 24" stroke-width=1.5 stroke=currentColor><path stroke-linecap=round stroke-linejoin=round d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+</div>
+<div class=card-text>
+<h2>Timer</h2>
+<p>Record for a specific duration.</p>
+</div>
+</button>
+<button class=menu-card data-target=schedule>
+<div class=card-icon>
+<svg xmlns=http://www.w3.org/2000/svg fill=none viewBox="0 0 24 24" stroke-width=1.5 stroke=currentColor><path stroke-linecap=round stroke-linejoin=round d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg>
+</div>
+<div class=card-text>
+<h2>Schedule</h2>
+<p>Set a specific start and end time.</p>
+</div>
+</button>
+<button class=menu-card data-target=storage>
+<div class=card-icon>
+<svg xmlns=http://www.w3.org/2000/svg fill=none viewBox="0 0 24 24" stroke-width=1.5 stroke=currentColor><path stroke-linecap=round stroke-linejoin=round d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg>
+</div>
+<div class=card-text>
+<h2>Storage</h2>
+<p>Manage saved recordings.</p>
+</div>
+</button>
+<button class=menu-card data-target=logs>
+<div class=card-icon>
+<svg xmlns=http://www.w3.org/2000/svg fill=none viewBox="0 0 24 24" stroke-width=1.5 stroke=currentColor><path stroke-linecap=round stroke-linejoin=round d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg>
+</div>
+<div class=card-text>
+<h2>Activity Logs</h2>
+<p>Review motion timestamps.</p>
+</div>
+</button>
+</div>
+</section>
+<section id=view-surveillance class=view-stage>
+<header class=sub-header>
+<button class="btn-icon btn-back">
+<svg xmlns=http://www.w3.org/2000/svg fill=none viewBox="0 0 24 24" stroke-width=2 stroke=currentColor><path stroke-linecap=round stroke-linejoin=round d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"/></svg>
+</button>
+<h1 id=surveillanceTitle>Mode</h1>
+<div id=statusBadge class="badge status-idle">IDLE</div>
+</header>
+<div class=config-panel>
+<div id=config-continuous class=config-section>
+<p class=helper-text>Ready to monitor continuously.</p>
+</div>
+<div id=config-timer class=config-section>
+<div class=input-row>
+<label>Hours <input type=number id=timerHours min=0 max=72 value=0></label>
+<label>Minutes <input type=number id=timerMinutes min=0 max=59 value=30></label>
+</div>
+</div>
+<div id=config-schedule class=config-section>
+<div class=input-row>
+<label>Start <input type=datetime-local id=schedStart step=1></label>
+<label>End <input type=datetime-local id=schedEnd step=1></label>
+</div>
+</div>
+</div>
+<div class=viewport-panel>
+<button id=btnSwitchCamera class="btn btn-icon camera-switch hidden" title="Switch Camera">
+<svg xmlns=http://www.w3.org/2000/svg fill=none viewBox="0 0 24 24" stroke-width=1.5 stroke=currentColor><path stroke-linecap=round stroke-linejoin=round d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/></svg>
+</button>
+<video id=previewVideo autoplay playsinline muted></video>
+<canvas id=procCanvas style=display:none></canvas>
+</div>
+<div class=metrics-grid>
+<div class=metric-box><span class=m-label>Delta</span><span id=metricDelta class=m-value>0.0%</span></div>
+<div class=metric-box><span class=m-label>FPS</span><span id=metricFps class=m-value>5</span></div>
+<div class=metric-box><span class=m-label>Events</span><span id=metricEvents class=m-value>0</span></div>
+<div class=metric-box><span class=m-label>Status/Time</span><span id=metricTimer class=m-value>--:--</span></div>
+</div>
+<div class=action-bar>
+<button id=btnToggleRecord class="btn btn-primary btn-large">Start Monitoring</button>
+<button id=btnStealth class="btn btn-secondary btn-icon" title="Stealth Mode">
+<svg xmlns=http://www.w3.org/2000/svg fill=none viewBox="0 0 24 24" stroke-width=1.5 stroke=currentColor><path stroke-linecap=round stroke-linejoin=round d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"/></svg>
+</button>
+</div>
+</section>
+<section id=view-storage class=view-stage>
+<header class=sub-header>
+<button class="btn-icon btn-back">
+<svg xmlns=http://www.w3.org/2000/svg fill=none viewBox="0 0 24 24" stroke-width=2 stroke=currentColor><path stroke-linecap=round stroke-linejoin=round d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"/></svg>
+</button>
+<h1>Local Storage</h1>
+<div style=width:40px></div>
+</header>
+<div class=storage-bulk-actions>
+<button id=btnDownloadAll class="btn btn-primary btn-sm">Download All</button>
+<button id=btnDeleteAll class="btn btn-danger btn-sm">Delete All</button>
+</div>
+<div class=storage-list-wrapper>
+<ul id=fileList class=file-list></ul>
+</div>
+</section>
+<section id=view-logs class=view-stage>
+<header class=sub-header>
+<button class="btn-icon btn-back">
+<svg xmlns=http://www.w3.org/2000/svg fill=none viewBox="0 0 24 24" stroke-width=2 stroke=currentColor><path stroke-linecap=round stroke-linejoin=round d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"/></svg>
+</button>
+<h1>Activity Logs</h1>
+<div style=width:40px></div>
+</header>
+<div class=storage-bulk-actions>
+<button id=btnDeleteAllLogs class="btn btn-danger btn-sm" style=flex:unset;width:100%>Clear All Logs</button>
+</div>
+<div class=storage-list-wrapper>
+<ul id=logList class=file-list></ul>
+</div>
+</section>
+</div>
+<div id=stealthOverlay class="stealth-overlay hidden"></div>
+<div id=toastContainer class=toast-container></div>
+<div id=customModal class="modal-overlay modal-hidden">
+<div class=modal-box>
+<p id=modalText>Are you sure?</p>
+<div class=modal-actions>
+<button id=btnModalCancel class="btn btn-secondary">Cancel</button>
+<button id=btnModalConfirm class="btn btn-primary">Confirm</button>
+</div>
+</div>
+</div>
+<script src=logic.js></script>
+<script src=ui.js></script>
+</body>
+</html>
